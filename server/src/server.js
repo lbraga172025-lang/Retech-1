@@ -2,16 +2,15 @@ import 'dotenv/config';
 import express from 'express';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
-import Database from 'better-sqlite3';
+import pg from 'pg';
 import { Resend } from 'resend';
 import {
   randomBytes,
   createHash,
   timingSafeEqual
 } from 'node:crypto';
-import { mkdirSync } from 'node:fs';
-import path from 'node:path';
 
+const { Pool } = pg;
 const app = express();
 const port = Number(process.env.PORT || 3000);
 
@@ -19,29 +18,34 @@ const frontendOrigin = process.env.FRONTEND_ORIGIN || '';
 const publicBaseUrl = (process.env.PUBLIC_BASE_URL || '').replace(/\/$/, '');
 const adminApiKey = process.env.ADMIN_API_KEY || '';
 
+if (!process.env.DATABASE_URL) {
+  throw new Error('DATABASE_URL não foi configurada.');
+}
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  max: 5,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 10000
+});
+
 const resend = process.env.RESEND_API_KEY
   ? new Resend(process.env.RESEND_API_KEY)
   : null;
 
-const dbPath = process.env.DB_PATH || './data/retech.sqlite';
-
-mkdirSync(path.dirname(path.resolve(dbPath)), { recursive: true });
-
-const db = new Database(dbPath);
-db.pragma('journal_mode = WAL');
-
-db.exec(`
+// Cria as tabelas automaticamente.
+await pool.query(`
   CREATE TABLE IF NOT EXISTS pending_confirmations (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id BIGSERIAL PRIMARY KEY,
     email TEXT NOT NULL,
     token_hash TEXT NOT NULL UNIQUE,
     payload_json TEXT NOT NULL,
-    expires_at INTEGER NOT NULL,
-    created_at INTEGER NOT NULL
+    expires_at BIGINT NOT NULL,
+    created_at BIGINT NOT NULL
   );
 
   CREATE TABLE IF NOT EXISTS confirmed_contacts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id BIGSERIAL PRIMARY KEY,
     nome TEXT NOT NULL,
     email TEXT NOT NULL,
     telefone TEXT,
@@ -49,14 +53,14 @@ db.exec(`
     quantidade INTEGER,
     assunto TEXT NOT NULL,
     mensagem TEXT NOT NULL,
-    confirmed_at INTEGER NOT NULL
+    confirmed_at BIGINT NOT NULL
   );
 `);
 
 app.use(helmet());
 app.use(express.json({ limit: '20kb' }));
 
-// CORS: permite a comunicação com o site publicado.
+// CORS
 app.use((req, res, next) => {
   if (frontendOrigin && req.headers.origin === frontendOrigin) {
     res.setHeader('Access-Control-Allow-Origin', frontendOrigin);
@@ -112,7 +116,7 @@ function escapeHtml(value) {
   })[char]);
 }
 
-// Verifica a chave de acesso administrativo.
+// Proteção administrativa.
 function requireAdmin(req, res, next) {
   res.setHeader('Cache-Control', 'no-store');
 
@@ -123,7 +127,6 @@ function requireAdmin(req, res, next) {
   }
 
   const providedKey = req.get('X-Admin-Key') || '';
-
   const providedBuffer = Buffer.from(providedKey);
   const expectedBuffer = Buffer.from(adminApiKey);
 
@@ -139,15 +142,27 @@ function requireAdmin(req, res, next) {
   next();
 }
 
-// Teste para verificar se a API está funcionando.
-app.get('/api/health', (_req, res) => {
-  res.json({
-    status: 'ok',
-    service: 'ReTech confirmation API'
-  });
+// Teste da API e do banco.
+app.get('/api/health', async (_req, res) => {
+  try {
+    await pool.query('SELECT 1');
+
+    res.json({
+      status: 'ok',
+      database: 'connected',
+      service: 'ReTech confirmation API'
+    });
+  } catch (error) {
+    console.error('Database health check failed:', error);
+
+    res.status(503).json({
+      status: 'error',
+      database: 'disconnected'
+    });
+  }
 });
 
-// Recebe os dados e envia o e-mail de confirmação.
+// Recebe os dados e envia o e-mail.
 app.post('/api/confirmacao', sendLimiter, async (req, res) => {
   try {
     if (!resend || !process.env.RESEND_FROM || !publicBaseUrl) {
@@ -206,24 +221,19 @@ app.post('/api/confirmacao', sendLimiter, async (req, res) => {
 
     const token = randomBytes(32).toString('hex');
     const tokenHash = sha256(token);
-
     const now = Date.now();
     const expiresAt = now + 30 * 60 * 1000;
 
-    db.prepare(
-      'DELETE FROM pending_confirmations WHERE email = ?'
-    ).run(data.email);
+    await pool.query(
+      'DELETE FROM pending_confirmations WHERE email = $1',
+      [data.email]
+    );
 
-    db.prepare(`
-      INSERT INTO pending_confirmations
-      (email, token_hash, payload_json, expires_at, created_at)
-      VALUES (?, ?, ?, ?, ?)
-    `).run(
-      data.email,
-      tokenHash,
-      JSON.stringify(data),
-      expiresAt,
-      now
+    await pool.query(
+      `INSERT INTO pending_confirmations
+        (email, token_hash, payload_json, expires_at, created_at)
+       VALUES ($1, $2, $3, $4, $5)`,
+      [data.email, tokenHash, JSON.stringify(data), expiresAt, now]
     );
 
     const link =
@@ -235,20 +245,21 @@ app.post('/api/confirmacao', sendLimiter, async (req, res) => {
       subject: 'Confirme seu e-mail — ReTech',
       text:
         `Olá, ${data.nome}!\n\n` +
-        `Para confirmar que este endereço é seu, acesse o link abaixo em até 30 minutos:\n` +
+        'Para confirmar que este endereço é seu, acesse o link abaixo em até 30 minutos:\n' +
         `${link}\n\n` +
-        `Se você não solicitou esta confirmação, ignore esta mensagem.`,
+        'Se você não solicitou esta confirmação, ignore esta mensagem.',
       html:
         `<p>Olá, ${escapeHtml(data.nome)}!</p>` +
-        `<p>Para confirmar que este endereço é seu, clique no botão abaixo. O link expira em 30 minutos.</p>` +
+        '<p>Para confirmar que este endereço é seu, clique no botão abaixo. O link expira em 30 minutos.</p>' +
         `<p><a href="${link}">Confirmar meu e-mail</a></p>` +
-        `<p>Se você não solicitou esta confirmação, ignore esta mensagem.</p>`
+        '<p>Se você não solicitou esta confirmação, ignore esta mensagem.</p>'
     });
 
     if (error) {
-      db.prepare(
-        'DELETE FROM pending_confirmations WHERE token_hash = ?'
-      ).run(tokenHash);
+      await pool.query(
+        'DELETE FROM pending_confirmations WHERE token_hash = $1',
+        [tokenHash]
+      );
 
       console.error('Resend error:', error);
 
@@ -270,8 +281,10 @@ app.post('/api/confirmacao', sendLimiter, async (req, res) => {
   }
 });
 
-// Confirma o e-mail e salva definitivamente o contato.
-app.get('/api/confirmar', verifyLimiter, (req, res) => {
+// Confirma o e-mail e salva o contato.
+app.get('/api/confirmar', verifyLimiter, async (req, res) => {
+  const client = await pool.connect();
+
   try {
     const token = clean(req.query.token, 128);
 
@@ -283,20 +296,30 @@ app.get('/api/confirmar', verifyLimiter, (req, res) => {
 
     const tokenHash = sha256(token);
 
-    const pending = db.prepare(
-      'SELECT * FROM pending_confirmations WHERE token_hash = ?'
-    ).get(tokenHash);
+    await client.query('BEGIN');
+
+    const result = await client.query(
+      'SELECT * FROM pending_confirmations WHERE token_hash = $1 FOR UPDATE',
+      [tokenHash]
+    );
+
+    const pending = result.rows[0];
 
     if (!pending) {
+      await client.query('ROLLBACK');
+
       return res.status(404).json({
         error: 'Este link já foi utilizado ou não é válido. Solicite outro e-mail.'
       });
     }
 
-    if (pending.expires_at < Date.now()) {
-      db.prepare(
-        'DELETE FROM pending_confirmations WHERE token_hash = ?'
-      ).run(tokenHash);
+    if (Number(pending.expires_at) < Date.now()) {
+      await client.query(
+        'DELETE FROM pending_confirmations WHERE token_hash = $1',
+        [tokenHash]
+      );
+
+      await client.query('COMMIT');
 
       return res.status(410).json({
         error: 'O link expirou. Volte ao formulário e solicite uma nova confirmação.'
@@ -305,40 +328,54 @@ app.get('/api/confirmar', verifyLimiter, (req, res) => {
 
     const data = JSON.parse(pending.payload_json);
 
-    db.prepare(`
-      INSERT INTO confirmed_contacts
-      (nome, email, telefone, data_contato, quantidade, assunto, mensagem, confirmed_at)
-      VALUES (@nome, @email, @telefone, @data_contato, @quantidade, @assunto, @mensagem, @confirmed_at)
-    `).run({
-      ...data,
-      confirmed_at: Date.now()
-    });
+    await client.query(
+      `INSERT INTO confirmed_contacts
+        (nome, email, telefone, data_contato, quantidade, assunto, mensagem, confirmed_at)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+      [
+        data.nome,
+        data.email,
+        data.telefone || null,
+        data.data_contato || null,
+        data.quantidade,
+        data.assunto,
+        data.mensagem,
+        Date.now()
+      ]
+    );
 
-    db.prepare(
-      'DELETE FROM pending_confirmations WHERE token_hash = ?'
-    ).run(tokenHash);
+    await client.query(
+      'DELETE FROM pending_confirmations WHERE token_hash = $1',
+      [tokenHash]
+    );
+
+    await client.query('COMMIT');
 
     return res.json({
       message: 'E-mail confirmado.'
     });
 
   } catch (error) {
+    await client.query('ROLLBACK').catch(() => {});
     console.error(error);
 
     return res.status(500).json({
       error: 'Erro ao confirmar o e-mail.'
     });
+
+  } finally {
+    client.release();
   }
 });
 
-// ÁREA ADMINISTRATIVA: consulta protegida dos contatos confirmados.
+// Consulta administrativa dos contatos confirmados.
 app.get(
   '/api/admin/contatos',
   adminLimiter,
   requireAdmin,
-  (req, res) => {
+  async (_req, res) => {
     try {
-      const contatos = db.prepare(`
+      const result = await pool.query(`
         SELECT
           id,
           nome,
@@ -352,11 +389,11 @@ app.get(
         FROM confirmed_contacts
         ORDER BY confirmed_at DESC
         LIMIT 500
-      `).all();
+      `);
 
       return res.json({
-        total: contatos.length,
-        contatos
+        total: result.rows.length,
+        contatos: result.rows
       });
 
     } catch (error) {
@@ -369,6 +406,16 @@ app.get(
   }
 );
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`ReTech API listening on port ${port}`);
 });
+
+async function shutdown() {
+  server.close(async () => {
+    await pool.end();
+    process.exit(0);
+  });
+}
+
+process.on('SIGTERM', shutdown);
+process.on('SIGINT', shutdown);
