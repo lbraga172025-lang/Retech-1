@@ -1,7 +1,7 @@
 /*
-  ReTech — validação JavaScript e rascunho local do formulário.
-  O projeto é estático: os dados permanecem no navegador (LocalStorage) e
-  NÃO são transmitidos a servidor, e-mail ou serviço externo.
+  ReTech — validação JavaScript, rascunho local e envio para a API.
+  Os dados ficam salvos temporariamente no navegador e são enviados
+  ao servidor somente após o envio do formulário.
 */
 (function () {
   "use strict";
@@ -124,7 +124,6 @@
   async function enviarSolicitacao() {
     var botaoEnviar = formulario.querySelector('button[type="submit"]');
     var dados = coletarDados();
-    delete dados.ciencia;
     resultado.className = "form-status form-status--info";
     resultado.textContent = "Enviando solicitação de confirmação…";
     if (botaoEnviar) botaoEnviar.disabled = true;
