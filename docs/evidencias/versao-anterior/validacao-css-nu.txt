@@ -1,0 +1,2 @@
+Nu Html Checker com --also-check-css, css/base.css, 15/10/2026 (NÃO é o validador Jigsaw)
+Document checking completed. No errors found.

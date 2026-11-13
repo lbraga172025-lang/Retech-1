@@ -1,0 +1,3 @@
+Nu Html Checker (motor do validator.w3.org) versão 26.10.12 (973e40b) - executado localmente em 15/10/2026
+Comando: java -jar vnu.jar --format text *.html
+Document checking completed. No errors found.

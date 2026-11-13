@@ -1,0 +1,491 @@
+{
+ "overflow": [],
+ "console": [],
+ "failed": [
+  "midia@320: http://127.0.0.1:8765/assets/media/ciclo-logistica-reversa.mp4 net::ERR_ABORTED",
+  "midia@375: http://127.0.0.1:8765/assets/media/ciclo-logistica-reversa.mp4 net::ERR_ABORTED",
+  "midia@768: http://127.0.0.1:8765/assets/media/ciclo-logistica-reversa.mp4 net::ERR_ABORTED",
+  "midia@1024: http://127.0.0.1:8765/assets/media/ciclo-logistica-reversa.mp4 net::ERR_ABORTED",
+  "midia@1440: http://127.0.0.1:8765/assets/media/ciclo-logistica-reversa.mp4 net::ERR_ABORTED"
+ ],
+ "imgs": [],
+ "axe": {
+  "index@320": {
+   "v": [],
+   "passes": 39,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 6
+    }
+   ]
+  },
+  "sobre@320": {
+   "v": [],
+   "passes": 49,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "projetos@320": {
+   "v": [],
+   "passes": 39,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "impacto@320": {
+   "v": [],
+   "passes": 49,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "acessibilidade@320": {
+   "v": [],
+   "passes": 49,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "galeria@320": {
+   "v": [],
+   "passes": 38,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "midia@320": {
+   "v": [],
+   "passes": 42,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    },
+    {
+     "id": "frame-tested",
+     "n": 1
+    }
+   ]
+  },
+  "noticias@320": {
+   "v": [],
+   "passes": 38,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "contato@320": {
+   "v": [],
+   "passes": 46,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "orcamento_hospedagem@320": {
+   "v": [],
+   "passes": 48,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "index@375": {
+   "v": [],
+   "passes": 39,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 5
+    }
+   ]
+  },
+  "sobre@375": {
+   "v": [],
+   "passes": 49,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "projetos@375": {
+   "v": [],
+   "passes": 39,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "impacto@375": {
+   "v": [],
+   "passes": 49,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "acessibilidade@375": {
+   "v": [],
+   "passes": 49,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "galeria@375": {
+   "v": [],
+   "passes": 38,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "midia@375": {
+   "v": [],
+   "passes": 42,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    },
+    {
+     "id": "frame-tested",
+     "n": 1
+    }
+   ]
+  },
+  "noticias@375": {
+   "v": [],
+   "passes": 38,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "contato@375": {
+   "v": [],
+   "passes": 46,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "orcamento_hospedagem@375": {
+   "v": [],
+   "passes": 48,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "index@1440": {
+   "v": [],
+   "passes": 38,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 5
+    }
+   ]
+  },
+  "sobre@1440": {
+   "v": [],
+   "passes": 46,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "projetos@1440": {
+   "v": [],
+   "passes": 37,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "impacto@1440": {
+   "v": [],
+   "passes": 46,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "acessibilidade@1440": {
+   "v": [],
+   "passes": 47,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "galeria@1440": {
+   "v": [],
+   "passes": 37,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "midia@1440": {
+   "v": [],
+   "passes": 41,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    },
+    {
+     "id": "frame-tested",
+     "n": 1
+    }
+   ]
+  },
+  "noticias@1440": {
+   "v": [],
+   "passes": 36,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "contato@1440": {
+   "v": [],
+   "passes": 46,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  },
+  "orcamento_hospedagem@1440": {
+   "v": [],
+   "passes": 45,
+   "inc": [
+    {
+     "id": "color-contrast",
+     "n": 4
+    }
+   ]
+  }
+ },
+ "keyboard": [
+  {
+   "p": "index",
+   "skipLinkFirst": "Pular para o conteúdo",
+   "skipVisible": true,
+   "afterSkipId": "conteudo",
+   "hash": "#conteudo",
+   "focusables": 39,
+   "tabbed": 41,
+   "sem_foco_visivel": []
+  },
+  {
+   "p": "sobre",
+   "skipLinkFirst": "Pular para o conteúdo",
+   "skipVisible": true,
+   "afterSkipId": "conteudo",
+   "hash": "#conteudo",
+   "focusables": 30,
+   "tabbed": 32,
+   "sem_foco_visivel": []
+  },
+  {
+   "p": "projetos",
+   "skipLinkFirst": "Pular para o conteúdo",
+   "skipVisible": true,
+   "afterSkipId": "conteudo",
+   "hash": "#conteudo",
+   "focusables": 33,
+   "tabbed": 35,
+   "sem_foco_visivel": []
+  },
+  {
+   "p": "impacto",
+   "skipLinkFirst": "Pular para o conteúdo",
+   "skipVisible": true,
+   "afterSkipId": "conteudo",
+   "hash": "#conteudo",
+   "focusables": 41,
+   "tabbed": 43,
+   "sem_foco_visivel": []
+  },
+  {
+   "p": "acessibilidade",
+   "skipLinkFirst": "Pular para o conteúdo",
+   "skipVisible": true,
+   "afterSkipId": "conteudo",
+   "hash": "#conteudo",
+   "focusables": 30,
+   "tabbed": 32,
+   "sem_foco_visivel": []
+  },
+  {
+   "p": "galeria",
+   "skipLinkFirst": "Pular para o conteúdo",
+   "skipVisible": true,
+   "afterSkipId": "conteudo",
+   "hash": "#conteudo",
+   "focusables": 29,
+   "tabbed": 31,
+   "sem_foco_visivel": []
+  },
+  {
+   "p": "midia",
+   "skipLinkFirst": "Pular para o conteúdo",
+   "skipVisible": true,
+   "afterSkipId": "conteudo",
+   "hash": "#conteudo",
+   "focusables": 44,
+   "tabbed": 47,
+   "sem_foco_visivel": []
+  },
+  {
+   "p": "noticias",
+   "skipLinkFirst": "Pular para o conteúdo",
+   "skipVisible": true,
+   "afterSkipId": "conteudo",
+   "hash": "#conteudo",
+   "focusables": 34,
+   "tabbed": 36,
+   "sem_foco_visivel": []
+  },
+  {
+   "p": "contato",
+   "skipLinkFirst": "Pular para o conteúdo",
+   "skipVisible": true,
+   "afterSkipId": "conteudo",
+   "hash": "#conteudo",
+   "focusables": 33,
+   "tabbed": 35,
+   "sem_foco_visivel": []
+  },
+  {
+   "p": "orcamento_hospedagem",
+   "skipLinkFirst": "Pular para o conteúdo",
+   "skipVisible": true,
+   "afterSkipId": "conteudo",
+   "hash": "#conteudo",
+   "focusables": 36,
+   "tabbed": 38,
+   "sem_foco_visivel": []
+  }
+ ],
+ "menu": {
+  "fechadoInicial": true,
+  "abreAoClicar": true,
+  "ariaExpandedAberto": "true",
+  "fechaEsc": true,
+  "ariaExpandedFechado": "false",
+  "botaoPorTeclado": "menu-toggle",
+  "abreComEnter": true,
+  "links": 10
+ },
+ "form": {
+  "vazio_invalido": true,
+  "mensagemNativaNome": "Please fill out this field.",
+  "focoNoPrimeiroInvalido": "nome",
+  "emailInvalido": {
+   "typeMismatch": true,
+   "msg": "Please include an '@' in the email address. 'errado' is missing an '@'."
+  },
+  "mensagemCurta": {
+   "tooShort": true,
+   "msg": "Please lengthen this text to 10 characters or more (you are currently using 5 characters)."
+  },
+  "checkboxObrigatorio": true,
+  "statusAposSucesso": "Validação concluída: todos os campos estão corretos. Esta é uma demonstração acadêmica, então nenhuma mensagem foi enviada e nenhum dado foi guardado.",
+  "urlAposSucesso": "http://127.0.0.1:8765/contato.html",
+  "requisicoesNoEnvio": [],
+  "bordaCampoInvalido": "rgb(179, 38, 30)"
+ },
+ "media": {
+  "video": {
+   "controls": true,
+   "autoplayAttr": false,
+   "currentSrc": "ciclo-logistica-reversa.webm",
+   "duration": 56.265,
+   "w": 960,
+   "h": 540,
+   "error": null,
+   "canH264": "",
+   "canWebm": "probably",
+   "trackKind": "captions",
+   "trackLang": "pt-BR",
+   "cues": 9,
+   "poster": "ciclo-logistica-reversa-poster.jpg",
+   "currentTimeApos2_5s": 2.46,
+   "cueAtivo": "Logística reversa de lixo eletrônico em cinco passos, um guia da equipe EcoTech."
+  },
+  "audio": {
+   "controls": true,
+   "autoplayAttr": false,
+   "duration": 88.977234,
+   "error": null,
+   "canMp3": "probably",
+   "currentTimeApos2s": 1.97
+  },
+  "iframe": {
+   "title": "Mapa do Brasil no OpenStreetMap para localizar ecopontos e pontos de coleta de eletrônicos",
+   "src": "https://www.openstreetmap.org/export/embed.html?bbox=-74.0%2C-34.0%2C-",
+   "autoplay": false,
+   "w": 976
+  },
+  "autoplayNaPagina": false
+ },
+ "focus": []
+}
