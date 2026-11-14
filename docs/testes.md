@@ -90,13 +90,26 @@ python -m http.server 8000
 
 Acesse `http://localhost:8000/contato.html` para testar o formulário. O uso de servidor local permite verificar o comportamento de LocalStorage em uma origem HTTP estável.
 
-## Testes adicionais da confirmação de e-mail (pendentes de ambiente)
+## Testes funcionais — 14/11/2026
 
-- [ ] API responde em `/api/health`.
-- [ ] Envio cria e-mail real no Resend.
-- [ ] Endereço só é registrado após clicar no link.
-- [ ] Token expirado (30 min) é recusado.
-- [ ] Token reutilizado é recusado.
-- [ ] Limite de tentativas é aplicado.
-- [ ] Falha do Resend mostra mensagem amigável e não confirma o endereço.
-- [ ] CORS aceita apenas a origem configurada.
+Testes realizados no formulário de contato:
+
+- [x] Validação de campos obrigatórios.
+- [x] Validação de formato de e-mail inválido.
+- [x] Aceitação de e-mail válido.
+- [x] Salvamento automático do rascunho no LocalStorage.
+- [x] Recuperação dos dados após atualizar a página.
+- [x] Persistência das últimas alterações.
+- [x] Responsividade em dispositivo móvel.
+- [x] Conteúdo legível com zoom de 200%.
+- [x] Funcionamento em janela anônima.
+- [x] Página carregada sem erros no console do navegador.
+
+**Resultado:** todos os testes complementares foram aprovados.
+
+- [x] Navegação por teclado com Tab.
+- [x] Navegação inversa com Shift + Tab.
+- [x] Ativação do botão usando Enter.
+- [x] Limpeza dos campos e remoção do rascunho.
+
+**Resultado:** todos os testes funcionais acima foram aprovados.
