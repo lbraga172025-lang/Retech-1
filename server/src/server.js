@@ -107,7 +107,7 @@ const sha256 = (value) =>
 const clean = (value, max) =>
   String(value ?? '').trim().slice(0, max);
 
-// Verifica se o domínio possui estrutura DNS para receber e-mails.
+// Verifica registros DNS do domínio.
 async function consultarDns(resolver, dominio) {
   try {
     return await resolver(dominio);
@@ -115,20 +115,24 @@ async function consultarDns(resolver, dominio) {
     if (error.code === 'ENODATA' || error.code === 'ENOTFOUND') {
       return [];
     }
+
     throw error;
   }
 }
 
+// Verifica se o domínio possui estrutura para receber e-mails.
 async function dominioTemRotaDeEmail(email) {
   const dominio = email.split('@').pop();
 
   const mx = await consultarDns(resolveMx, dominio);
 
+  // Verifica se existe um registro Null MX.
+  // Esse registro informa que o domínio não aceita e-mails.
   if (mx.length > 0) {
-    return true;
+    return !mx.some(registro => registro.exchange === '.');
   }
 
-  // Domínios sem MX podem receber e-mail por meio de registros A ou AAAA.
+  // Sem MX, verifica os registros A e AAAA.
   const [ipv4, ipv6] = await Promise.all([
     consultarDns(resolve4, dominio),
     consultarDns(resolve6, dominio)
@@ -250,7 +254,7 @@ app.post('/api/confirmacao', sendLimiter, async (req, res) => {
       });
     }
 
-        // Verifica se o domínio pode receber e-mails.
+    // Verifica se o domínio pode receber e-mails.
     let dominioValido;
 
     try {
@@ -268,7 +272,7 @@ app.post('/api/confirmacao', sendLimiter, async (req, res) => {
         error: 'O domínio deste e-mail não parece existir ou não está configurado para receber mensagens. Confira o endereço digitado.'
       });
     }
-    
+
     const token = randomBytes(32).toString('hex');
     const tokenHash = sha256(token);
     const now = Date.now();
