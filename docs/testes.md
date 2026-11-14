@@ -69,6 +69,13 @@ Testes realizados no formulário de contato:
 - [x] Salvamento automático do rascunho no LocalStorage.
 - [x] Recuperação dos dados após atualizar a página.
 - [x] Persistência das últimas alterações.
+- [x] Responsividade em dispositivo móvel.
+- [x] Conteúdo legível com zoom de 200%.
+- [x] Funcionamento em janela anônima.
+- [x] Página carregada sem erros no console do navegador.
+
+**Resultado:** todos os testes complementares foram aprovados.
+
 - [x] Navegação por teclado com Tab.
 - [x] Navegação inversa com Shift + Tab.
 - [x] Ativação do botão usando Enter.
