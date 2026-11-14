@@ -47,7 +47,11 @@ Consulta em 03/11/2026. Só entraram informações encontradas em páginas ou re
 
 ## Observações
 
-- O R$ 0,01 do primeiro ano é promoção com condições; compare sempre o valor do segundo ano.
-- O Registro.br é o registro oficial dos domínios .br; os demais são revendedores/registradores.
-- Para esta entrega acadêmica **não é necessário contratar nada**: o site é estático e pode ser entregue em `.zip`. A equipe pretende publicar o código no GitHub e o site no Railway; confira planos e condições no site oficial da plataforma.
-- Método de coleta: leitura do texto das páginas oficiais (sem login, sem simular compra). Nenhum cupom, desconto de checkout ou imposto adicional foi considerado.
+- O valor promocional do primeiro ano pode estar sujeito a condições específicas. Compare sempre o preço de renovação antes de contratar.
+- O Registro.br é o serviço oficial de registro de domínios .br; os demais são registradores comerciais.
+- Para a entrega acadêmica, não foi necessário contratar um serviço de hospedagem tradicional. O projeto foi publicado utilizando GitHub e Render.
+- O domínio personalizado utilizado na publicação é `www.retech.tec.br`.
+- O frontend está publicado por meio do GitHub Pages, enquanto o backend utiliza o Render e o banco de dados PostgreSQL.
+- O serviço Resend é utilizado na integração de confirmação de e-mail.
+- Os valores das tabelas representam a pesquisa realizada em outubro de 2026 e não necessariamente correspondem aos preços atuais.
+- Método de coleta: consulta às páginas oficiais dos provedores, sem login ou simulação de compra.
