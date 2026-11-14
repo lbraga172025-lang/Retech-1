@@ -107,6 +107,36 @@ const sha256 = (value) =>
 const clean = (value, max) =>
   String(value ?? '').trim().slice(0, max);
 
+// Verifica se o domínio possui estrutura DNS para receber e-mails.
+async function consultarDns(resolver, dominio) {
+  try {
+    return await resolver(dominio);
+  } catch (error) {
+    if (error.code === 'ENODATA' || error.code === 'ENOTFOUND') {
+      return [];
+    }
+    throw error;
+  }
+}
+
+async function dominioTemRotaDeEmail(email) {
+  const dominio = email.split('@').pop();
+
+  const mx = await consultarDns(resolveMx, dominio);
+
+  if (mx.length > 0) {
+    return true;
+  }
+
+  // Domínios sem MX podem receber e-mail por meio de registros A ou AAAA.
+  const [ipv4, ipv6] = await Promise.all([
+    consultarDns(resolve4, dominio),
+    consultarDns(resolve6, dominio)
+  ]);
+
+  return ipv4.length > 0 || ipv6.length > 0;
+}
+
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (char) => ({
     '&': '&amp;',
