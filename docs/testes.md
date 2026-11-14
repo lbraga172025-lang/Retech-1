@@ -10,7 +10,9 @@ Foram implementados após a revisão anterior:
 
 **Validação HTML concluída:** as 10 páginas principais e a página auxiliar `confirmar-email.html` foram verificadas pelo W3C Markup Validator. Todas apresentaram **0 erros e 0 avisos**.
 
-Os testes interativos em navegador ainda precisam ser concluídos conforme a lista abaixo. A validação HTML, por si só, não comprova o funcionamento de todas as funcionalidades.
+**Validação CSS concluída:** a folha de estilo foi verificada pelo W3C CSS Validator, sem erros encontrados.
+
+Os testes interativos em navegador ainda precisam ser concluídos conforme a lista abaixo. As validações HTML e CSS, por si só, não comprovam o funcionamento de todas as funcionalidades.
 
 ## Validação HTML — W3C Markup Validator
 
@@ -30,6 +32,14 @@ Os testes interativos em navegador ainda precisam ser concluídos conforme a lis
 
 **Resultado geral:** 11 documentos HTML validados, sem erros ou avisos.
 
+## Validação CSS — W3C CSS Validator
+
+| Item | Resultado |
+|---|---|
+| Folha de estilo do site | Nenhum erro encontrado |
+
+**Resultado:** validação CSS concluída sem erros.
+
 ## Roteiro de testes da versão atualizada
 
 | Funcionalidade | Procedimento | Resultado esperado | Status |
@@ -44,3 +54,49 @@ Os testes interativos em navegador ainda precisam ser concluídos conforme a lis
 | Navegação convencional | Teste `Tab`, `Shift+Tab` e `Enter` | Navegação convencional continua funcionando | Pendente de teste em navegador |
 
 ## Histórico da revisão anterior — 03/11/2026
+
+Os resultados abaixo pertencem à versão anterior à implementação de 12/11/2026 e não substituem os testes da versão atualizada.
+
+| # | Teste | Status anterior | Resultado registrado |
+|---|---|---|---|
+| 1 | Estrutura das 10 páginas | Executado | 0 problemas no script de verificação da época |
+| 2 | Links internos e arquivos locais | Executado | 0 arquivos ausentes na revisão anterior |
+| 3 | Console, HTTP e responsividade | Executado | 0 erros registrados nas combinações testadas |
+| 4 | Imagens | Executado | Imagens conferidas na revisão anterior |
+| 5 | Vídeo | Com ressalva | Sem faixa de legendas CC |
+| 6 | Áudio | Executado | Player independente, sem autoplay |
+| 7 | Iframe | Com ressalva | Mapa não testado com internet |
+| 8 | Formulário | Obsoleto | Antes apenas validação nativa; substituído pela validação JavaScript e LocalStorage descritos acima |
+| 9 | Teclado | Parcial | Antes testado com Tab/Enter; setas do menu adicionadas nesta atualização |
+| 10 | Barra de acessibilidade | Executado parcialmente | Testes anteriores descritos na documentação de acessibilidade |
+
+## Pendências antes da entrega
+
+1. Executar os testes interativos acima em navegador desktop e celular.
+2. Repetir testes de responsividade, foco visível e zoom de 200% após as alterações.
+3. Testar leitores de tela e navegação com teclado em pelo menos um navegador adicional.
+4. Registrar capturas de tela reais da validação, do rascunho recuperado e da navegação pelas setas.
+5. Publicar a versão final com HTTPS e confirmar todos os links.
+
+**Observação:** a validação HTML e CSS no W3C foi concluída. As pendências acima dizem respeito aos testes funcionais, de acessibilidade e aos registros de evidências.
+
+## Como iniciar testes locais
+
+Na pasta raiz do projeto, execute:
+
+```bash
+python -m http.server 8000
+```
+
+Acesse `http://localhost:8000/contato.html` para testar o formulário. O uso de servidor local permite verificar o comportamento de LocalStorage em uma origem HTTP estável.
+
+## Testes adicionais da confirmação de e-mail (pendentes de ambiente)
+
+- [ ] API responde em `/api/health`.
+- [ ] Envio cria e-mail real no Resend.
+- [ ] Endereço só é registrado após clicar no link.
+- [ ] Token expirado (30 min) é recusado.
+- [ ] Token reutilizado é recusado.
+- [ ] Limite de tentativas é aplicado.
+- [ ] Falha do Resend mostra mensagem amigável e não confirma o endereço.
+- [ ] CORS aceita apenas a origem configurada.
