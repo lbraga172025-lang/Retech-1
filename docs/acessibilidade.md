@@ -16,7 +16,9 @@ O ReTech **não declara conformidade completa** com WCAG, eMAG ou qualquer outro
 | Barra de acessibilidade | todas | botões **A−**, **A+** (texto de 80% a 200%, lembrado entre páginas via `localStorage`) e **Ler página** (síntese de voz do navegador, em português quando houver voz; botão vira "Parar leitura"). Grupo com `role="group"`, rótulos `aria-label`, `aria-pressed`, avisos em `role="status"`, foco âmbar, alvos de 44 px. Código em `js/acessibilidade.js`. A leitura depende das vozes do sistema; sem suporte, o botão fica desativado e informa |
 | Contraste | todas | ver tabela abaixo |
 | Tabelas | `impacto`, `orcamento_hospedagem`, `acessibilidade`, `sobre` | `caption`, `th scope="col"` e `th scope="row"` |
-| Formulário | `contato` | `label` associado a cada campo, tipos apropriados, `required`, `pattern`, `minlength`/`maxlength`, validação JavaScript com `preventDefault()`, mensagens específicas ligadas por `aria-describedby`, `aria-invalid`, borda de erro e foco no primeiro campo inválido; rascunho salvo/restaurado no LocalStorage; aviso explícito de que não há envio a servidor ou e-mail |
+| Recurso | Onde | Como |
+|---|---|---|
+| Formulário | `contato` | `label` associado a cada campo, tipos apropriados, `required`, `pattern`, `minlength`/`maxlength`, validação JavaScript com `preventDefault()`, mensagens específicas ligadas por `aria-describedby`, `aria-invalid`, borda de erro e foco no primeiro campo inválido. Rascunho salvo e restaurado no LocalStorage. O envio efetivo utiliza uma API no back-end, com confirmação de e-mail pelo Resend e armazenamento dos contatos confirmados no PostgreSQL. |
 | Vídeo | `midia` | `controls`, `poster`, MP4 e WebM, sem reprodução automática, `aria-label`, texto dos slides em `details`, link para baixar. **Sem legendas (CC)**: não existe arquivo `.vtt` correspondente ao vídeo narrado (pendência da equipe) |
 | Áudio | `midia` | player `<audio controls>` independente (MP3), `preload="metadata"`, sem reprodução automática, `aria-label`, alternativa em texto e link para baixar. A transcrição literal da locução depende do roteiro da equipe |
 | iframe | `midia` | atributo `title` descritivo; botões alternativos para abrir o mapa fora da página |
@@ -27,7 +29,13 @@ O ReTech **não declara conformidade completa** com WCAG, eMAG ou qualquer outro
 
 ## Atualização de 12/11/2026
 
-A validação JavaScript, o salvamento do rascunho e a navegação por setas foram implementados nesta data. O comportamento deve ser confirmado nos testes em navegador descritos em `testes.md`; a documentação não declara conformidade integral com WCAG.
+A validação JavaScript, o salvamento do rascunho e a navegação por setas foram implementados nesta data. Posteriormente, o formulário também passou a contar com integração de back-end para confirmação real de e-mail. Os testes interativos e as verificações de acessibilidade devem ser acompanhados conforme o roteiro registrado em testes.md. A documentação não declara conformidade integral com WCAG.
+
+## Atualização de 14/11/2026 — Integração de back-end
+
+O formulário passou a utilizar uma API hospedada no Render, integrada ao PostgreSQL e ao serviço Resend para confirmação de e-mail. A validação no navegador continua sendo utilizada para melhorar a experiência e a acessibilidade, enquanto o servidor realiza verificações adicionais.
+
+A validação DNS verifica a configuração do domínio do e-mail, mas não garante a existência de uma caixa postal específica.
 
 ## Contrastes medidos (WCAG 2.x, fórmula de luminância relativa)
 
