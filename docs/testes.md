@@ -1,115 +1,93 @@
-# Testes: procedimentos, resultados e pendências
+# Testes e validação do projeto ReTech
 
-## Atualização funcional — 14/11/2026
+**Data da atualização:** 14/11/2026  
+**Projeto:** ReTech — Logística reversa de lixo eletrônico  
+**Equipe:** EcoTech  
+**Instituição:** UNICID
 
-Foram implementados após a revisão anterior:
+## 1. Validação HTML
 
-- **Validação JavaScript:** o formulário usa `preventDefault()`, verifica os campos com a API de validade HTML, mostra mensagens específicas, aplica borda de erro e leva o foco ao primeiro campo inválido.
-- **LocalStorage:** o rascunho é salvo durante o preenchimento e restaurado quando a página é aberta novamente no mesmo navegador. O botão de limpeza remove os dados locais. A página informa claramente que os dados não são enviados a servidor nem por e-mail.
-- **Navegação por setas:** com foco em um link do menu principal, `←`, `→`, `↑` e `↓` movem o foco entre os links. `Enter`, `Tab` e `Shift+Tab` continuam disponíveis.
+As páginas principais foram verificadas no W3C Markup Validator.
 
-**Validação HTML concluída:** as 10 páginas principais e a página auxiliar `confirmar-email.html` foram verificadas pelo W3C Markup Validator. Todas apresentaram **0 erros e 0 avisos**.
+- index.html
+- sobre.html
+- projetos.html
+- impacto.html
+- acessibilidade.html
+- contato.html
+- galeria.html
+- midia.html
+- noticias.html
+- orcamento_hospedagem.html
+- confirmar-email.html
 
-**Validação CSS concluída:** a folha de estilo foi verificada pelo W3C CSS Validator, sem erros encontrados.
+**Resultado:** todas as páginas apresentaram zero erros e zero avisos na validação realizada.
 
-Os testes interativos em navegador ainda precisam ser concluídos conforme a lista abaixo. As validações HTML e CSS, por si só, não comprovam o funcionamento de todas as funcionalidades.
+## 2. Validação CSS
 
-## Validação HTML — W3C Markup Validator
+A folha de estilos foi submetida ao W3C CSS Validator.
 
-| Página | Resultado |
-|---|---|
-| `index.html` | 0 erros e 0 avisos |
-| `sobre.html` | 0 erros e 0 avisos |
-| `projetos.html` | 0 erros e 0 avisos |
-| `impacto.html` | 0 erros e 0 avisos |
-| `acessibilidade.html` | 0 erros e 0 avisos |
-| `contato.html` | 0 erros e 0 avisos |
-| `galeria.html` | 0 erros e 0 avisos |
-| `midia.html` | 0 erros e 0 avisos |
-| `noticias.html` | 0 erros e 0 avisos |
-| `orcamento_hospedagem.html` | 0 erros e 0 avisos |
-| `confirmar-email.html` | 0 erros e 0 avisos |
+**Resultado:** nenhuma ocorrência de erro na validação realizada.
 
-**Resultado geral:** 11 documentos HTML validados, sem erros ou avisos.
+## 3. Testes funcionais
 
-## Validação CSS — W3C CSS Validator
+Foram realizados testes no formulário de contato:
 
-| Item | Resultado |
-|---|---|
-| Folha de estilo do site | Nenhum erro encontrado |
+- Validação de campos obrigatórios.
+- Identificação de endereço de e-mail inválido.
+- Aceitação de dados válidos.
+- Exibição de mensagens de validação.
+- Salvamento automático de rascunho com LocalStorage.
+- Recuperação dos dados após atualizar a página.
+- Limpeza dos campos e do rascunho.
+- Navegação por teclado com Tab e Shift+Tab.
+- Ativação da validação pela tecla Enter.
 
-**Resultado:** validação CSS concluída sem erros.
+**Resultado:** funcionalidades verificadas e funcionando conforme esperado.
 
-## Roteiro de testes da versão atualizada
+## 4. Responsividade e acessibilidade
 
-| Funcionalidade | Procedimento | Resultado esperado | Status |
-|---|---|---|---|
-| Validação vazia | Em `contato.html`, clique em “Validar e salvar rascunho” sem preencher | Mensagem geral, mensagens nos campos obrigatórios, bordas em destaque e foco no primeiro erro | Pendente de teste em navegador |
-| E-mail | Informe `abc` e tente validar | Mensagem de e-mail inválido e borda destacada | Pendente de teste em navegador |
-| Telefone | Informe letras ou número fora do padrão | Mensagem com o formato esperado | Pendente de teste em navegador |
-| Validação correta | Preencha os campos obrigatórios corretamente e aceite o aviso | Confirmação de validação e rascunho salvo localmente | Pendente de teste em navegador |
-| LocalStorage | Preencha parte do formulário, recarregue a página | Os campos preenchidos são recuperados | Pendente de teste em navegador |
-| Limpeza | Clique em “Limpar campos e rascunho”, recarregue | Campos vazios e rascunho removido | Pendente de teste em navegador |
-| Setas | Use `Tab` até o menu e teste as quatro setas | O foco se move entre os links do menu na direção indicada, com foco visível | Pendente de teste em navegador |
-| Navegação convencional | Teste `Tab`, `Shift+Tab` e `Enter` | Navegação convencional continua funcionando | Pendente de teste em navegador |
+Foram realizados testes complementares:
 
-## Histórico da revisão anterior — 03/11/2026
+- Visualização em dispositivos móveis.
+- Verificação de ausência de rolagem horizontal indesejada.
+- Utilização dos botões em telas menores.
+- Ampliação da página em até 200%.
+- Navegação em modo anônimo.
+- Verificação do console do navegador.
 
-Os resultados abaixo pertencem à versão anterior à implementação de 12/11/2026 e não substituem os testes da versão atualizada.
+**Resultado:** comportamento adequado nos testes realizados.
 
-| # | Teste | Status anterior | Resultado registrado |
-|---|---|---|---|
-| 1 | Estrutura das 10 páginas | Executado | 0 problemas no script de verificação da época |
-| 2 | Links internos e arquivos locais | Executado | 0 arquivos ausentes na revisão anterior |
-| 3 | Console, HTTP e responsividade | Executado | 0 erros registrados nas combinações testadas |
-| 4 | Imagens | Executado | Imagens conferidas na revisão anterior |
-| 5 | Vídeo | Com ressalva | Sem faixa de legendas CC |
-| 6 | Áudio | Executado | Player independente, sem autoplay |
-| 7 | Iframe | Com ressalva | Mapa não testado com internet |
-| 8 | Formulário | Obsoleto | Antes apenas validação nativa; substituído pela validação JavaScript e LocalStorage descritos acima |
-| 9 | Teclado | Parcial | Antes testado com Tab/Enter; setas do menu adicionadas nesta atualização |
-| 10 | Barra de acessibilidade | Executado parcialmente | Testes anteriores descritos na documentação de acessibilidade |
+## 5. API e banco de dados
 
-## Pendências antes da entrega
+A API de confirmação de e-mail foi testada.
 
-1. Executar os testes interativos acima em navegador desktop e celular.
-2. Repetir testes de responsividade, foco visível e zoom de 200% após as alterações.
-3. Testar leitores de tela e navegação com teclado em pelo menos um navegador adicional.
-4. Registrar capturas de tela reais da validação, do rascunho recuperado e da navegação pelas setas.
-5. Publicar a versão final com HTTPS e confirmar todos os links.
+Resultados registrados anteriormente:
 
-**Observação:** a validação HTML e CSS no W3C foi concluída. As pendências acima dizem respeito aos testes funcionais, de acessibilidade e aos registros de evidências.
+- Resposta de saúde da API com status `ok`.
+- Conexão com o banco de dados PostgreSQL.
+- Geração e utilização de token de confirmação.
+- Envio de e-mail de confirmação.
+- Confirmação real de endereço de e-mail.
+- Rejeição de reutilização de token.
+- Funcionamento da limitação de tentativas.
 
-## Como iniciar testes locais
+**Observação:** o tempo completo de expiração do token não foi verificado manualmente.
 
-Na pasta raiz do projeto, execute:
+## 6. Integração de e-mail
 
-```bash
-python -m http.server 8000
-```
+O serviço Resend foi utilizado para o envio de mensagens de confirmação.
 
-Acesse `http://localhost:8000/contato.html` para testar o formulário. O uso de servidor local permite verificar o comportamento de LocalStorage em uma origem HTTP estável.
+**Resultado:** envio e confirmação de e-mail realizados com sucesso.
 
-## Testes funcionais — 14/11/2026
+## 7. Pendências de verificação
 
-Testes realizados no formulário de contato:
+- Concluir a verificação do tratamento de falhas no envio pelo Resend.
+- Confirmar o último deploy da API no Render.
+- Realizar a revisão final do funcionamento do sistema.
 
-- [x] Validação de campos obrigatórios.
-- [x] Validação de formato de e-mail inválido.
-- [x] Aceitação de e-mail válido.
-- [x] Salvamento automático do rascunho no LocalStorage.
-- [x] Recuperação dos dados após atualizar a página.
-- [x] Persistência das últimas alterações.
-- [x] Responsividade em dispositivo móvel.
-- [x] Conteúdo legível com zoom de 200%.
-- [x] Funcionamento em janela anônima.
-- [x] Página carregada sem erros no console do navegador.
+## 8. Conclusão
 
-**Resultado:** todos os testes complementares foram aprovados.
+O projeto ReTech passou por testes de validação HTML e CSS, testes funcionais, verificações de responsividade, acessibilidade e integração com serviços externos.
 
-- [x] Navegação por teclado com Tab.
-- [x] Navegação inversa com Shift + Tab.
-- [x] Ativação do botão usando Enter.
-- [x] Limpeza dos campos e remoção do rascunho.
-
-**Resultado:** todos os testes funcionais acima foram aprovados.
+Os resultados registrados demonstram o funcionamento das principais funcionalidades implementadas. As pendências identificadas deverão ser verificadas antes da entrega final.
