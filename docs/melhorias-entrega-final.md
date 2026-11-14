@@ -1,37 +1,66 @@
 # Melhorias implementadas para a entrega final
 
-Atualização de código: 12/11/2026.
+Atualização da documentação: 14/11/2026.
 
-## 1. Validação do formulário (`js/contato.js`)
+## 1. Validação do formulário
 
-- O evento `submit` chama `preventDefault()` para impedir o envio padrão e a recarga da página.
-- Cada campo é verificado com `checkValidity()`, aproveitando regras HTML já declaradas (`required`, `type="email"`, `pattern`, `min`, `max`, `minlength` e `maxlength`).
-- A função `obterErro()` transforma os estados de validade em mensagens em português.
-- Campos inválidos recebem a classe `is-invalid`, o atributo `aria-invalid="true"` e uma mensagem associada por `aria-describedby`.
-- O foco é direcionado ao primeiro campo inválido. Ao corrigir o campo, sua mensagem e seu destaque são removidos.
+O formulário de contato recebeu melhorias na validação dos dados:
 
-## 2. LocalStorage (`js/contato.js`)
+- Utilização de `preventDefault()` para controlar o envio pelo JavaScript.
+- Verificação dos campos com a API de validade HTML.
+- Mensagens específicas em português para os campos inválidos.
+- Destaque visual dos campos que precisam de correção.
+- Utilização de atributos de acessibilidade, como `aria-invalid` e `aria-describedby`.
+- Direcionamento do foco para o primeiro campo inválido.
 
-- O formulário salva automaticamente os valores como rascunho com a chave `retech-formulario-contato-v1`.
-- Ao abrir novamente `contato.html` no mesmo navegador e dispositivo, o rascunho é recuperado.
-- O botão de limpeza apaga os campos e remove a chave do LocalStorage.
-- O aviso do formulário explica que os dados ficam no navegador. **Não existe backend, envio de e-mail ou transmissão dos dados para a equipe.** Não usar dados reais ou sensíveis durante a demonstração; limpar o rascunho ao terminar em computador compartilhado.
+Além da validação no navegador, o servidor realiza novas verificações para evitar que dados inválidos sejam processados.
 
-## 3. Navegação por setas (`js/menu.js`)
+## 2. Armazenamento local com LocalStorage
 
-- Com o foco em um link do menu principal, `ArrowLeft`, `ArrowRight`, `ArrowUp` e `ArrowDown` movem o foco para outro link.
-- A escolha considera a posição visual dos links, permitindo navegar em menus horizontais, quebrados em mais de uma linha ou verticais em telas pequenas.
-- Se não houver item naquela direção, o script usa a sequência do menu como alternativa.
-- `Tab`, `Shift+Tab`, `Enter` e o botão do menu móvel continuam disponíveis.
+O formulário também possui funcionalidade de salvamento automático de rascunho.
 
-## Como demonstrar ao professor
+- Os dados preenchidos são armazenados no navegador.
+- O rascunho pode ser recuperado ao retornar à página no mesmo navegador.
+- O botão de limpeza remove os campos preenchidos e os dados armazenados.
+- O armazenamento local funciona independentemente do banco de dados do servidor.
 
-1. Abra `contato.html`, tente validar o formulário vazio e mostre as mensagens e bordas de erro.
-2. Preencha os campos corretamente, valide e mostre a mensagem de confirmação.
-3. Edite um campo, atualize a página e mostre que o rascunho foi recuperado.
-4. Clique em “Limpar campos e rascunho” e atualize novamente para mostrar que foi removido.
-5. Volte ao menu, use `Tab` para focar um link e teste as quatro setas. Use `Enter` para abrir a página selecionada.
+O LocalStorage não substitui o banco de dados PostgreSQL: ele serve apenas para recuperar o preenchimento local do formulário.
 
-## Limites conhecidos
+## 3. Navegação por teclado
 
-O LocalStorage é local ao navegador e não sincroniza entre pessoas, dispositivos ou navegadores. A validação de formato do e-mail não confirma que a caixa postal existe. Para receber mensagens ou enviar códigos de confirmação reais seria necessário um backend ou serviço de formulários/e-mail, o que não faz parte desta versão estática.
+O menu principal recebeu melhorias de navegação por teclado:
+
+- As setas direcionais permitem movimentar o foco entre os links.
+- O foco visual facilita identificar o item selecionado.
+- A navegação convencional por `Tab`, `Shift+Tab` e `Enter` permanece disponível.
+- O comportamento considera a disposição visual do menu em diferentes tamanhos de tela.
+
+## 4. Integração real de confirmação de e-mail
+
+Foi implementada uma integração entre o formulário, a API e o serviço de envio de e-mails.
+
+O fluxo utiliza:
+
+- Node.js e Express para processamento das solicitações.
+- Resend para envio dos e-mails de confirmação.
+- PostgreSQL para persistência dos contatos confirmados.
+- Render para hospedagem do back-end.
+
+O servidor realiza validações adicionais, incluindo a verificação DNS do domínio informado, antes de iniciar o processo de confirmação.
+
+O contato só é registrado como confirmado após a conclusão do processo de confirmação por e-mail.
+
+## 5. Publicação e infraestrutura
+
+O projeto passou a contar com uma estrutura de publicação composta por:
+
+- Front-end hospedado no GitHub Pages.
+- API hospedada no Render.
+- Banco de dados PostgreSQL.
+- Serviço de envio de e-mails Resend.
+- Domínio personalizado `www.retech.tec.br`.
+- Comunicação protegida por HTTPS.
+
+Essa arquitetura separa a interface pública das operações executadas pelo servidor.
+
+## 6. Como demonstrar as melhorias
