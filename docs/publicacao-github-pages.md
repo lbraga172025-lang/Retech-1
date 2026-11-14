@@ -1,64 +1,109 @@
-# Publicação do ReTech no GitHub Pages + API de confirmação
+# Publicação do ReTech — GitHub Pages, Render e domínio personalizado
 
-## Arquitetura
-- **GitHub Pages:** publica o front-end estático (HTML, CSS, JavaScript e assets).
-- **API Node.js:** deve ficar em uma hospedagem separada que execute Node.js.
-- **Resend:** envia o e-mail transacional de confirmação.
-- **SQLite:** exige armazenamento persistente no servidor da API. Se a hospedagem não oferecer volume persistente, migrar para PostgreSQL antes da produção.
+## 1. Arquitetura de publicação
 
-GitHub Pages não executa `server/src/server.js`, não mantém banco de dados e não pode guardar a chave privada do Resend.
+O projeto ReTech utiliza serviços separados para disponibilizar o site e processar suas funcionalidades de back-end.
 
-## 1. Preparar o repositório
-1. Extraia o conteúdo da pasta `ReTech` para a raiz do repositório GitHub (os arquivos `index.html`, `contato.html`, `css/`, `js/`, `assets/`, `server/` e `.github/` devem ficar na raiz).
-2. Confirme que `js/api-config.js` está versionado com valor vazio enquanto a URL da API ainda não existe.
-3. Não envie arquivos `.env`, chaves de API, tokens, banco de produção ou dados pessoais para o GitHub. O `.gitignore` já exclui `.env` e arquivos SQLite.
-4. Faça commit e push para a branch `main`.
+- **GitHub Pages:** hospedagem do front-end estático, incluindo HTML, CSS, JavaScript e arquivos de mídia.
+- **Render:** hospedagem da API desenvolvida em Node.js e Express.
+- **PostgreSQL:** banco de dados utilizado pelo back-end.
+- **Resend:** serviço responsável pelo envio dos e-mails de confirmação.
+- **GitHub:** versionamento e armazenamento do código-fonte.
+- **Domínio personalizado:** www.retech.tec.br.
 
-## 2. Ativar GitHub Pages
-1. No repositório, abra **Settings → Pages**.
-2. Em **Build and deployment → Source**, selecione **GitHub Actions**.
-3. A workflow `.github/workflows/pages.yml` publica a raiz do repositório a cada push em `main`.
-4. Aguarde a execução em **Actions** e abra a URL publicada.
+O GitHub Pages disponibiliza os arquivos estáticos, enquanto as operações que dependem do servidor são executadas pela API hospedada no Render.
 
-URL típica de repositório: `https://USUARIO.github.io/NOME-DO-REPOSITORIO/`.
-Se o repositório for `USUARIO.github.io`, a URL típica não inclui o nome de repositório.
+## 2. Publicação do front-end
 
-## 3. Configurar o endereço público do front-end
-Depois que o GitHub Pages publicar o site, ajuste as variáveis no serviço de hospedagem da API:
+O front-end é disponibilizado pelo GitHub Pages.
 
-- `FRONTEND_ORIGIN=https://USUARIO.github.io` (somente a origem, sem caminho do repositório).
-- `PUBLIC_BASE_URL=https://USUARIO.github.io/NOME-DO-REPOSITORIO` (inclua o caminho do repositório para que o link do e-mail abra `confirmar-email.html` no lugar correto).
+O processo utiliza o repositório GitHub do projeto e a configuração de publicação existente no próprio repositório.
 
-Para um repositório de usuário `USUARIO.github.io`, use a URL sem o caminho do repositório em ambas as variáveis.
+Os arquivos do site incluem:
 
-## 4. Configurar o front-end para chamar a API
-Quando a API tiver uma URL HTTPS pública, edite `js/api-config.js`:
+- Páginas HTML.
+- Folhas de estilo CSS.
+- Scripts JavaScript.
+- Imagens e demais recursos da pasta de assets.
 
-```js
-window.RETECH_API_URL = 'https://SUA-API-PUBLICA';
-```
+As atualizações do código são versionadas no GitHub e publicadas conforme a configuração de implantação do projeto.
 
-Não coloque a chave do Resend nesse arquivo. Ele é público e será entregue a qualquer visitante. Faça commit e push da alteração.
+## 3. Domínio personalizado e HTTPS
 
-## 5. Configurar a API e o Resend
-Na hospedagem Node.js, configure as variáveis de ambiente descritas em `server/.env.example`:
-- `RESEND_API_KEY`: chave privada criada no painel do Resend.
-- `RESEND_FROM`: remetente em domínio verificado no Resend.
-- `PUBLIC_BASE_URL`: URL completa do GitHub Pages, incluindo o caminho do repositório quando aplicável.
-- `FRONTEND_ORIGIN`: apenas a origem do GitHub Pages, sem caminho.
-- `DB_PATH`: caminho em volume persistente, por exemplo `/var/data/retech.sqlite`.
-- `PORT`: normalmente fornecida automaticamente pela plataforma.
+O site utiliza o domínio personalizado:
 
-O backend deve usar HTTPS e armazenamento persistente. Não considere SQLite em disco efêmero como armazenamento de produção: reinícios ou novos deploys podem apagar os registros e os tokens.
+**https://www.retech.tec.br**
 
-## 6. Testes antes de divulgar
-- Abrir `contato.html` pelo endereço HTTPS do GitHub Pages.
-- Enviar formulário válido e verificar a resposta `202` da API.
-- Conferir a chegada do e-mail, inclusive spam.
-- Clicar no link e confirmar que a página `confirmar-email.html` abre sob o caminho correto do repositório.
-- Verificar token expirado, token reutilizado, e-mail inválido, indisponibilidade da API e falha do Resend.
-- Confirmar no banco da API que o contato só aparece em `confirmed_contacts` depois do clique.
-- Conferir CORS: a API deve aceitar somente a origem exata do GitHub Pages configurada em `FRONTEND_ORIGIN`.
+A configuração do domínio permite acessar o projeto por um endereço próprio, sem depender exclusivamente do endereço padrão do GitHub Pages.
 
-## Limitação atual
-O workflow prepara a publicação do front-end, mas não publica nem configura automaticamente a API. A confirmação real só funciona depois que API, Resend, domínio remetente e variáveis de ambiente estiverem configurados.
+O HTTPS protege a comunicação entre o navegador e o site por meio de uma conexão criptografada.
+
+A emissão e a aplicação do certificado dependem da configuração correta dos registros DNS e da validação do domínio pela plataforma.
+
+## 4. Publicação do back-end
+
+A API do ReTech é desenvolvida com Node.js e Express e está hospedada no Render.
+
+O servidor é responsável por:
+
+- Receber as solicitações enviadas pelo front-end.
+- Validar os dados recebidos.
+- Processar as solicitações de confirmação de e-mail.
+- Integrar o sistema ao Resend.
+- Registrar os contatos confirmados no PostgreSQL.
+- Disponibilizar rotas de consulta e administração protegidas.
+
+A API funciona separadamente do GitHub Pages, pois a hospedagem estática não executa aplicações Node.js.
+
+## 5. Banco de dados
+
+O projeto utiliza PostgreSQL para persistir os dados processados pelo servidor.
+
+A conexão com o banco é configurada por meio de variáveis de ambiente no serviço de hospedagem.
+
+Essa separação permite que os dados sejam armazenados no banco de dados, independentemente dos arquivos estáticos publicados no GitHub Pages.
+
+## 6. Integração de e-mail
+
+O envio de mensagens de confirmação utiliza o Resend.
+
+A chave privada do serviço fica armazenada nas configurações de ambiente do back-end, sem exposição no código público do navegador.
+
+O fluxo de confirmação é processado pela API e utiliza o banco de dados para registrar os contatos após a conclusão da confirmação.
+
+## 7. Segurança e configurações
+
+Para manter a aplicação segura:
+
+- Não publicar arquivos `.env` no GitHub.
+- Não inserir chaves privadas no JavaScript do front-end.
+- Utilizar HTTPS nas comunicações públicas.
+- Manter as credenciais nas variáveis de ambiente do servidor.
+- Restringir as origens autorizadas nas configurações de CORS.
+- Proteger as rotas administrativas com autenticação.
+- Manter o banco de dados separado dos arquivos públicos do site.
+
+## 8. Situação da publicação
+
+O ReTech está publicado e utiliza domínio personalizado.
+
+A arquitetura implantada é composta por:
+
+| Componente | Serviço utilizado | Situação |
+|---|---|---|
+| Front-end | GitHub Pages | Publicado |
+| Domínio personalizado | retech.tec.br | Configurado |
+| HTTPS | Certificado SSL | Configurado para o domínio |
+| API | Render | Implantada |
+| Banco de dados | PostgreSQL | Integrado |
+| Envio de e-mail | Resend | Integrado |
+
+**Endereço público:** https://www.retech.tec.br
+
+## 9. Melhorias futuras
+
+- Ampliar os testes de disponibilidade da API.
+- Implementar monitoramento de erros e falhas de envio de e-mail.
+- Melhorar os registros de auditoria e o acompanhamento das solicitações.
+- Desenvolver uma interface administrativa para consulta dos contatos confirmados.
+- Realizar verificações periódicas de segurança, acessibilidade e desempenho.
