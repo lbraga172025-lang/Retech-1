@@ -1,42 +1,42 @@
-# Diário de bordo
+# Diário de bordo — ReTech
 
-Registra só o que pode ser comprovado pelos arquivos do projeto. **Datas, reuniões e responsáveis que não constam aqui devem ser preenchidos pela equipe**; nada foi inventado.
+> Atualizar esta tabela com os responsáveis reais e eventuais reuniões. Não atribuir trabalho a um integrante sem confirmação dele.
 
-| Data | Registro | Fonte da informação | Responsável |
+| Data | Registro | Evidência | Responsável |
 |---|---|---|---|
-| 22/09/2026 | Escopo da disciplina datado | `README.md`, `sobre.html` | a preencher |
-| 14/10/2026 | Primeira consulta de fontes, notícias e preços; produção da versão anterior do vídeo | `fontes.md`, `hospedagem.md`, data dos arquivos | a preencher |
-| 15/10/2026 | Reconferência de fontes e preços; primeira rodada de testes e correções (erro de HTML no iframe, rolagem horizontal, WebM) | `testes.md` anterior | a preencher |
-| 20/10/2026 | Chegada do vídeo com narração integrada (`retech-logistica-reversa-narrado.mp4`) | data do arquivo | a preencher |
-| 03/11/2026 | Revisão técnica: áudio MP3 independente, pôster e WebM do vídeo narrado, novos campos do formulário, seção "Como nasceu o ReTech", comparação de sustentabilidade, correção da documentação | este diário, `testes.md` | a preencher |
-| 03/11/2026 | Barra de acessibilidade (A−, A+, Ler página) e correção de rolagem horizontal com texto a 200% em `index`, `contato` e `orcamento_hospedagem` | `testes.md` | a preencher |
+| 22/09/2026 | Escopo e estrutura inicial do projeto acadêmico | `docs/escopo.md`, páginas e histórico do projeto | Equipe EcoTech — confirmar responsáveis |
+| 14–15/10/2026 | Pesquisa de fontes, notícias, preços de hospedagem/domínio e revisão de conteúdo | `docs/fontes.md`, `docs/hospedagem.md` | Equipe — preencher nomes |
+| 20/10/2026 | Produção/integração do vídeo narrado | `assets/media/` | Equipe — preencher nome |
+| 03/11/2026 | Revisões de conteúdo, página de mídia, barra de acessibilidade e ajustes de responsividade | `docs/testes.md`, `docs/acessibilidade.md`, capturas em `docs/evidencias/` | Equipe — preencher nomes |
+| 12/11/2026 | Implementação da validação JS, rascunho LocalStorage e navegação direcional no menu | `js/contato.js`, `js/menu.js`, `docs/melhorias-entrega-final.md` | Equipe — preencher nomes |
+| 13/11/2026 | Integração da API Node/Express, configuração do Resend, domínio remetente e publicação do front-end e da API | `server/src/server.js`, `js/api-config.js`, `docs/publicacao-github-pages.md` | Equipe — preencher nomes |
+| 13/11/2026 | Migração do armazenamento do servidor para PostgreSQL | `server/src/server.js`, `server/package.json`, histórico de commits `c763931` | Equipe — preencher nomes |
+| 14/11/2026 | Verificação DNS para domínio de e-mail, com bloqueio de domínios sem rota e Null MX | `server/src/server.js`, commits `e60883c`, `7417ffc`, `400a6ca` | Equipe — preencher nomes |
+| 14/11/2026 | Teste em produção: domínio HTTPS, envio para endereço válido, confirmação pelo link e rejeição de domínio fictício sem rota | Testes manuais relatados pela equipe; registrar capturas sem expor dados pessoais | Equipe — preencher nomes |
 
-## Divergências corrigidas em 03/11/2026
+## Uso de Inteligência Artificial
 
-- `guia-descarte.mp3` aparecia na documentação, mas nunca existiu nos arquivos: referência removida; criado `retech-logistica-reversa-narracao.mp3` a partir do vídeo.
-- Legendas `.vtt` documentadas para o vídeo atual: o arquivo é da versão anterior (56 s) e não corresponde ao vídeo de 64,7 s. Documentação corrigida.
-- Créditos da narração (eSpeak NG x ElevenLabs): o vídeo em uso é creditado ao ElevenLabs pela equipe; eSpeak ficou como crédito da versão anterior, sem uso.
+A equipe utilizou ChatGPT como apoio para explicação técnica, revisão e depuração. O uso deve ser apresentado como assistência, não como substituição do entendimento dos integrantes.
 
-## Para a equipe preencher
+| Data aproximada | Prompt/objetivo (resumido) | Sugestão aproveitada | Revisão/teste realizado pela equipe |
+|---|---|---|---|
+| 12–14/11/2026 | Analisar o JavaScript do formulário e explicar validação, LocalStorage e envio para API | Explicação do fluxo, leitura de `preventDefault`, `checkValidity`, `setItem` e `getItem` | Código existente foi lido; testes do rascunho ainda devem ser demonstrados na apresentação |
+| 13/11/2026 | Integrar confirmação de e-mail real sem expor chave no front-end | Uso de API Node/Express, Resend, token aleatório e hash no PostgreSQL | Equipe configurou o serviço, recebeu e-mail de teste e confirmou pelo link |
+| 14/11/2026 | Identificar por que endereços de domínio inexistente eram aceitos | Consulta DNS MX e fallback A/AAAA, tratamento de Null MX | Equipe publicou o commit `400a6ca` e testou domínio inexistente e endereço válido |
+| 14/11/2026 | Auditar requisitos acadêmicos e comparar com repositório | Matriz de status e identificação de documentação defasada, validação W3C pendente e PR ausente | Conferência do repositório, arquivos, árvore e commits; pendências listadas em `docs/testes.md` |
 
-Reuniões, divisão real de cada etapa, decisões de design e datas de entrega.
+### Limites e decisões críticas sobre IA
 
+- A equipe não deve apresentar código que não consiga explicar linha a linha.
+- A validação DNS não é apresentada como verificação da caixa postal; apenas verifica se o domínio aparenta ter rota de e-mail.
+- LocalStorage não foi tratado como banco central: os contatos confirmados ficam no PostgreSQL.
+- As credenciais de Resend, banco e administrador permanecem nas variáveis de ambiente, não em arquivos públicos.
+- A equipe deve acrescentar ao diário qualquer sugestão da IA que tenha sido recusada ou alterada, explicando o motivo real. Não inventar uma decisão recusada.
 
-## 12/11/2026 — Melhorias para a entrega final
+## Próximas ações
 
-- Implementada validação do formulário com JavaScript, `preventDefault()`, mensagens por campo, destaque visual e foco no primeiro erro.
-- Implementado salvamento automático e recuperação de rascunho com LocalStorage, incluindo ação para apagar os dados.
-- Implementada navegação pelas quatro setas direcionais nos links do menu principal, preservando Tab, Shift+Tab e Enter.
-- Atualizadas as orientações de privacidade do formulário: esta versão estática não envia dados por e-mail nem para servidor.
-- Próxima etapa: executar testes reais em navegador, validar HTML/CSS e registrar evidências da nova versão.
-
-
-### 13/11/2026 — Estrutura de confirmação de e-mail
-Foi iniciada a integração real de confirmação de endereço: front-end envia solicitação à API; backend Node/Express gera token seguro, envia link pelo Resend e confirma o endereço antes de registrar a mensagem. Adicionados endpoint de envio e confirmação, página de retorno, rate limit, hash de token e persistência SQLite. Envio real pendente de configurar domínio/credenciais e hospedar API com banco persistente.
-
-
-### 13/11/2026 — Preparação da publicação no GitHub Pages
-- Definida a arquitetura de publicação: front-end estático no GitHub Pages e API Node.js hospedada separadamente.
-- Adicionada workflow do GitHub Actions para publicar a raiz do repositório na branch `main`.
-- Documentadas as configurações de `FRONTEND_ORIGIN`, `PUBLIC_BASE_URL`, `RETECH_API_URL`, Resend e armazenamento persistente.
-- Publicação e testes reais ainda dependem da URL do repositório e da configuração do serviço de API/e-mail.
+1. Atualizar documentação que ainda descrevia a versão estática/SQLite.
+2. Validar as dez páginas com W3C e guardar relatórios da versão atual.
+3. Testar todo o formulário com teclado e LocalStorage em ambiente publicado.
+4. Criar branch e Pull Request; cada integrante deve registrar commits próprios e reais.
+5. Definir se o painel administrativo será incluído como funcionalidade extra e implementar autenticação antes de expor dados.
