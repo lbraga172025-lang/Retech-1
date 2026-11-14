@@ -1,3 +1,4 @@
+import { resolveMx, resolve4, resolve6 } from 'node:dns/promises';
 import 'dotenv/config';
 import express from 'express';
 import helmet from 'helmet';
