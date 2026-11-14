@@ -250,6 +250,25 @@ app.post('/api/confirmacao', sendLimiter, async (req, res) => {
       });
     }
 
+        // Verifica se o domínio pode receber e-mails.
+    let dominioValido;
+
+    try {
+      dominioValido = await dominioTemRotaDeEmail(data.email);
+    } catch (error) {
+      console.error('Erro ao consultar DNS:', error);
+
+      return res.status(503).json({
+        error: 'Não foi possível verificar o domínio do e-mail agora. Tente novamente em instantes.'
+      });
+    }
+
+    if (!dominioValido) {
+      return res.status(400).json({
+        error: 'O domínio deste e-mail não parece existir ou não está configurado para receber mensagens. Confira o endereço digitado.'
+      });
+    }
+    
     const token = randomBytes(32).toString('hex');
     const tokenHash = sha256(token);
     const now = Date.now();
