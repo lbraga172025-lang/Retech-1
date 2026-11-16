@@ -1,3 +1,4 @@
+```javascript
 /*
   ReTech — validação JavaScript, rascunho local e envio para a API.
   Os dados ficam salvos temporariamente no navegador e são enviados
@@ -78,7 +79,7 @@
 
   function salvarRascunho() {
     try {
-      localStorage.setItem(CHAVE_RASCUNHO, JSON.stringify(coletarDados()));
+      window.localStorage.setItem(CHAVE_RASCUNHO, JSON.stringify(coletarDados()));
       return true;
     } catch (erro) {
       resultado.className = "form-status form-status--erro";
@@ -89,7 +90,7 @@
 
   function restaurarRascunho() {
     try {
-      var salvo = localStorage.getItem(CHAVE_RASCUNHO);
+      var salvo = window.localStorage.getItem(CHAVE_RASCUNHO);
       if (!salvo) return;
       var dados = JSON.parse(salvo);
       camposValidaveis.forEach(function (campo) {
@@ -101,7 +102,7 @@
       resultado.className = "form-status form-status--info";
       resultado.textContent = "Rascunho recuperado deste navegador. Você pode continuar preenchendo ou limpar os dados.";
     } catch (erro) {
-      try { localStorage.removeItem(CHAVE_RASCUNHO); } catch (ignorado) { /* armazenamento indisponível */ }
+      try { window.localStorage.removeItem(CHAVE_RASCUNHO); } catch (ignorado) { /* armazenamento indisponível */ }
     }
   }
 
@@ -137,6 +138,13 @@
       });
       var retorno = await resposta.json().catch(function () { return {}; });
       if (!resposta.ok) throw new Error(retorno.error || "Não foi possível solicitar a confirmação.");
+
+      try {
+        window.localStorage.removeItem(CHAVE_RASCUNHO);
+      } catch (erro) {
+        /* armazenamento indisponível */
+      }
+
       resultado.className = "form-status form-status--ok";
       resultado.textContent = "Solicitação recebida. Enviamos um link de confirmação para " + dados.email + ". Abra a mensagem e clique no link para confirmar seu endereço. Se não encontrar, confira o spam.";
       resultado.focus();
@@ -173,7 +181,7 @@
 
   formulario.addEventListener("reset", function () {
     window.setTimeout(function () {
-      try { localStorage.removeItem(CHAVE_RASCUNHO); } catch (erro) { /* armazenamento indisponível */ }
+      try { window.localStorage.removeItem(CHAVE_RASCUNHO); } catch (erro) { /* armazenamento indisponível */ }
       camposValidaveis.forEach(function (campo) {
         campo.classList.remove("is-invalid");
         campo.removeAttribute("aria-invalid");
@@ -185,3 +193,4 @@
     }, 0);
   });
 })();
+```
