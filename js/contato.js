@@ -1,4 +1,3 @@
-```javascript
 /*
   ReTech — validação JavaScript, rascunho local e envio para a API.
   Os dados ficam salvos temporariamente no navegador e são enviados
@@ -193,4 +192,3 @@
     }, 0);
   });
 })();
-```
