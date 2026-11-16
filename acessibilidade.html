@@ -24,16 +24,16 @@
       <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-lista">Menu</button>
       <nav class="site-nav" aria-label="Menu principal">
         <ul class="nav-list" id="menu-lista">
-            <li><a href="index.html">Início</a></li>
-            <li><a href="sobre.html">Sobre</a></li>
-            <li><a href="projetos.html">Projetos</a></li>
-            <li><a href="impacto.html">Impacto</a></li>
-            <li><a href="acessibilidade.html" aria-current="page">Acessibilidade</a></li>
-            <li><a href="galeria.html">Galeria</a></li>
-            <li><a href="midia.html">Mídia</a></li>
-            <li><a href="noticias.html">Notícias</a></li>
-            <li><a href="contato.html">Contato</a></li>
-            <li><a href="orcamento_hospedagem.html">Orçamento</a></li>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="projetos.html">Projetos</a></li>
+          <li><a href="impacto.html">Impacto</a></li>
+          <li><a href="acessibilidade.html" aria-current="page">Acessibilidade</a></li>
+          <li><a href="galeria.html">Galeria</a></li>
+          <li><a href="midia.html">Mídia</a></li>
+          <li><a href="noticias.html">Notícias</a></li>
+          <li><a href="contato.html">Contato</a></li>
+          <li><a href="orcamento_hospedagem.html">Orçamento</a></li>
         </ul>
       </nav>
     </div>
@@ -81,47 +81,56 @@
             <h3>Navegação por teclado</h3>
             <p>Todos os links, botões, campos e controles de mídia podem ser acessados com a tecla Tab. Com foco em um link do menu principal, as setas direcionais movem o foco entre os itens; Enter abre o link. No início de cada página há o link “Pular para o conteúdo”. Em telas pequenas, o menu abre e fecha pelo botão e a tecla Esc o fecha.</p>
           </article>
+
           <article class="card">
             <span class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/></svg></span>
             <h3>Foco visível</h3>
             <p>O elemento em foco recebe um contorno espesso, em cor que se destaca do fundo: azul em áreas claras, branco sobre o verde e âmbar no rodapé escuro.</p>
           </article>
+
           <article class="card">
             <span class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4M4 20h16M8 16v-5M12 16V8M16 16v-3"/></svg></span>
             <h3>Contraste</h3>
             <p>As combinações de cores de texto e fundo foram calculadas pela fórmula de contraste das WCAG, com a meta de pelo menos 4,5:1 para textos. Os valores medidos estão na documentação do projeto.</p>
           </article>
+
           <article class="card">
             <span class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M21 16l-5-5-8 8"/></svg></span>
             <h3>Textos alternativos</h3>
             <p>Imagens informativas, como as da galeria, descrevem o conteúdo no atributo <code>alt</code>. Imagens que só repetem o texto ao lado, como as dos cartões de projetos, usam <code>alt=""</code> para não gerar ruído.</p>
           </article>
+
           <article class="card">
             <span class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
             <h3>Formulário</h3>
             <p>Cada campo do formulário de contato tem rótulo associado e tipo adequado. O JavaScript valida os campos, impede o envio padrão, mostra mensagens específicas e destaca os campos com erro. Um rascunho é salvo no LocalStorage do navegador; os dados não são enviados a um servidor ou e-mail.</p>
           </article>
+
           <article class="card">
             <span class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4z"/><path d="M20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z"/></svg></span>
             <h3>Estrutura semântica</h3>
             <p>Todas as páginas usam <code>header</code>, <code>nav</code>, <code>main</code> e <code>footer</code>, um único título <code>h1</code>, subtítulos em ordem e <code>lang="pt-BR"</code>. A página atual é marcada no menu com <code>aria-current="page"</code>.</p>
           </article>
+
           <article class="card">
             <span class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg></span>
             <h3>Mídia com alternativas</h3>
             <p>O vídeo e o áudio têm controles, alternativa em texto e não tocam automaticamente. O vídeo ainda não tem legendas (CC); o texto exibido nos slides está disponível na página. O mapa incorporado tem um título descritivo.</p>
           </article>
+
           <article class="card">
             <span class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.5a4 4 0 0 0 4.9 4.9L20 12l-8 8a2.1 2.1 0 0 1-3-3l8-8z"/></svg></span>
             <h3>Tabelas legíveis</h3>
             <p>As tabelas têm legenda, células de cabeçalho com escopo definido e, em telas estreitas, rolagem horizontal dentro da própria tabela, que também pode ser acessada pelo teclado.</p>
           </article>
+
           <article class="card">
             <span class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 5a3 3 0 0 1 0 6M18 14a6 6 0 0 1 3 6"/></svg></span>
             <h3>Zoom e telas pequenas</h3>
             <p>O layout é fluido e usa unidades relativas, o que permite ampliar o texto sem quebrar a página. Respeitamos a preferência do sistema por menos movimento: animações e transições são reduzidas.</p>
           </article>
         </div>
+
         <p class="table-note mt-2">ARIA é usado apenas onde o HTML nativo não basta: <code>aria-current</code> no menu, <code>aria-expanded</code> e <code>aria-controls</code> no botão do menu móvel, e rótulos nas regiões de tabela que rolam.</p>
       </div>
     </section>
@@ -152,16 +161,8 @@
             </table>
           </div>
         </div>
+
         <div>
-          <h2>O que ainda precisa ser testado</h2>
-          <p>Para ser honesto sobre o estado do projeto: a equipe fez verificações automáticas de estrutura e de cores, mas alguns testes dependem de pessoas e de equipamentos.</p>
-          <ul>
-            <li>Teste com leitor de tela (por exemplo, NVDA, VoiceOver ou TalkBack).</li>
-            <li>Navegação completa por teclado em diferentes navegadores.</li>
-            <li>Avaliação com ferramentas como WAVE ou Lighthouse.</li>
-            <li>Validação do CSS no validador do W3C.</li>
-          </ul>
-          <p>O que foi realmente verificado, e o que está pendente, fica registrado em <code>docs/acessibilidade.md</code> e <code>docs/testes.md</code>.</p>
           <p>Encontrou uma barreira neste site? Conte pela <a href="contato.html">página de contato</a>.</p>
         </div>
       </div>
@@ -176,21 +177,23 @@
           <p>Site educativo sobre logística reversa de lixo eletrônico, sustentabilidade e descarte correto.</p>
           <p>Projeto acadêmico da disciplina de Front-End (UNICID), orientado pelo Prof. Paulo Fratta. O ReTech não é uma organização constituída.</p>
         </div>
+
         <div>
           <h2>Navegação</h2>
           <ul>
-          <li><a href="index.html">Início</a></li>
-          <li><a href="sobre.html">Sobre</a></li>
-          <li><a href="projetos.html">Projetos</a></li>
-          <li><a href="impacto.html">Impacto</a></li>
-          <li><a href="acessibilidade.html">Acessibilidade</a></li>
-          <li><a href="galeria.html">Galeria</a></li>
-          <li><a href="midia.html">Mídia</a></li>
-          <li><a href="noticias.html">Notícias</a></li>
-          <li><a href="contato.html">Contato</a></li>
-          <li><a href="orcamento_hospedagem.html">Orçamento</a></li>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="projetos.html">Projetos</a></li>
+            <li><a href="impacto.html">Impacto</a></li>
+            <li><a href="acessibilidade.html">Acessibilidade</a></li>
+            <li><a href="galeria.html">Galeria</a></li>
+            <li><a href="midia.html">Mídia</a></li>
+            <li><a href="noticias.html">Notícias</a></li>
+            <li><a href="contato.html">Contato</a></li>
+            <li><a href="orcamento_hospedagem.html">Orçamento</a></li>
           </ul>
         </div>
+
         <div>
           <h2>Equipe EcoTech</h2>
           <ul>
@@ -203,6 +206,7 @@
           </ul>
         </div>
       </div>
+
       <p class="footer-bottom"><a href="#topo">Voltar ao menu principal</a> · <a href="acessibilidade.html">Acessibilidade</a> · Conteúdo educativo; fontes e créditos em cada página.</p>
     </div>
   </footer>
