@@ -4,7 +4,7 @@
   Os dados ficam salvos temporariamente no navegador e são enviados
   ao servidor somente após o envio do formulário.
 */
-(function () {
+;(function () {
   "use strict";
 
   var CHAVE_RASCUNHO = "retech-formulario-contato-v1";
